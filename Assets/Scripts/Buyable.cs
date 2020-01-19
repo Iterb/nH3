@@ -6,4 +6,5 @@ public class Buyable : MonoBehaviour
 {
     public Sprite icon;
     public uint cost;
+    public float creationTime;
 }

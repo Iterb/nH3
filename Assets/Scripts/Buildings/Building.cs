@@ -31,10 +31,19 @@ public class Building : MonoBehaviour
             (this as ISelectable).SetSelected(false);
         }
     }
+    protected virtual void Update()
+    {
+        CalculateCreationDelay();
+    }
 
     protected virtual void OnDestroy()
     {
         if (this is ISelectable) selectableBuildings.Remove(this as ISelectable);
+    }
+
+    protected virtual void CalculateCreationDelay()
+    {
+
     }
 
 

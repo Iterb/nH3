@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Tent : Building, ISelectable
 {
+    public float spawnTimer;
     protected override void Awake()
     {
         base.Awake();
@@ -13,6 +14,7 @@ public class Tent : Building, ISelectable
     protected override void Start()
     {
         base.Start();
+        //spawnTimer = 
     }
 
     protected override void OnDestroy()
@@ -27,10 +29,13 @@ public class Tent : Building, ISelectable
 
     void Spawn(GameObject prefab)
     {
+        if (spawnTimer > 0) return;
         var buyable = prefab.GetComponent<Buyable>();
         if (!buyable || !Money.TrySpendMoney(buyable.cost)) return;
         var unit = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
         unit.SendMessage("Command", flag.position, SendMessageOptions.DontRequireReceiver);
+        Debug.Log(buyable.creationTime);
+        spawnTimer = buyable.creationTime;
         MoneyEarner.ShowMoneyText(unit.transform.position, -(int)buyable.cost);
     }
 
@@ -42,6 +47,12 @@ public class Tent : Building, ISelectable
     void Command(Unit unit)
     {
         Command(unit.transform.position);
+    }
+
+    protected override void CalculateCreationDelay()
+    {
+        base.CalculateCreationDelay();
+        spawnTimer -= Time.deltaTime;
     }
 }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class UnitButton : MonoBehaviour
 {
@@ -10,10 +11,14 @@ public class UnitButton : MonoBehaviour
 
     Button button;
     Image image;
-    Text text;
+    Text[] texts;
+    Text costText;
+    Text spawnTimerText;
     private void Awake()
     {
-        text = GetComponentInChildren<Text>(true);
+        texts = GetComponentsInChildren<Text>(true);
+        costText = texts[0];
+        spawnTimerText = texts[1];
         button = GetComponentInChildren<Button>(true);
         image = GameObject.FindGameObjectWithTag("Image").GetComponent<Image>();
         Buyable buyable;
@@ -24,13 +29,17 @@ public class UnitButton : MonoBehaviour
         }
 
     }
-
+    
     private void Update()
     {
         Buyable buyable;
+        Tent tent;
+        tent = FindObjectOfType<Tent>();
+        spawnTimerText.enabled =  tent.spawnTimer > 0 ? true : false;
+        spawnTimerText.text = Math.Round(tent.spawnTimer, 2).ToString();
         if (spawnPrefab && (buyable = spawnPrefab.GetComponent<Buyable>()))
         {
-            text.text = buyable.cost + "$";
+            costText.text = buyable.cost + "$";
             button.interactable = Money.HaveEnoughMoney(buyable.cost);
         }
     }

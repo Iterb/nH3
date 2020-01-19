@@ -12,10 +12,13 @@ public class Money : MonoBehaviour
     Text text;
     private void Awake()
     {
+        
+    }
+    private void Start()
+    {
         money = this;
         text = GetComponentInChildren<Text>(true);
     }
-
     private void Update()
     {
         text.text = amount + "$";
