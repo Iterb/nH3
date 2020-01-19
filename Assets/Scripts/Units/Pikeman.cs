@@ -2,43 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Solider : Unit, ISelectable
+public class Pikeman : Unit, ISelectable
 {
-
-    [Header("Solider")]
-    [Range(0, .3f), SerializeField]
-    float shootDuration = 0;
-    [SerializeField]
-    ParticleSystem muzzleEffect, impactEffect;
-    [SerializeField]
-    LayerMask shootingLayerMask;
-
-    LineRenderer lineEffect;
-    Light lightEffect;
-    const string EFFECTS_TAG = "Effects";
     public void SetSelected(bool selected)
     {
         healthBar.gameObject.SetActive(selected);
         selectionIndicator.gameObject.SetActive(selected);
     }
+    [Header("Pikeman")]
+    [Range(0, .3f), SerializeField]
+    float shootDuration = 0;
+    const string EFFECTS_TAG = "Effects";
 
     protected override void Awake()
     {
         base.Awake();
         hpMax = 100;
-        lineEffect = muzzleEffect.GetComponent<LineRenderer>();
-        lightEffect = muzzleEffect.GetComponent<Light>();
-        impactEffect.transform.SetParent(null); // zeby ruch solidera podczas strzalu nie wplywal na miejsce impactu
-        var effects = GameObject.FindGameObjectWithTag(EFFECTS_TAG);
-        if (effects) impactEffect.transform.SetParent(effects.transform); //zmiana rodzica, ponieważ elementy UI są widoczne tylko na canvasie
         EndShootEffect();
 
     }
- 
+
     protected override void Start()
     {
         base.Start();
-        GameController.SoliderList.Add(this);
+        //GameController.SoliderList.Add(this);
     }
     protected override void Update()
     {

@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour
     [SerializeField]
     GameObject selectionIndicatorPrefab;
     [SerializeField]
-    float hp, hpMax = 100;
+    float hp;
     [SerializeField]
     protected float attackDistance = 1,
         attackCooldown = 1,
@@ -42,6 +42,15 @@ public class Unit : MonoBehaviour
     float attackTimer;
     protected Animator animator;
     protected Task task = Task.idle;
+
+    //UNIT STATISTICS
+    protected float attack;
+    protected float defence;
+    protected float dmgMin;
+    protected float dmgMax;
+    protected float hpMax = 50;
+    protected float movementSpeed;
+    protected float cost;
 
     protected virtual void Awake()
     {
