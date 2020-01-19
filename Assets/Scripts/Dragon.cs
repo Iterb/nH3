@@ -42,7 +42,7 @@ public class Dragon : Unit
     protected override void Awake()
     {
         base.Awake();
-        normalSpeed = nav.speed;
+        normalSpeed = movementSpeed;
         startPoint = transform.position;
     }
     protected override void Start()

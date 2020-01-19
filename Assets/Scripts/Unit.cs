@@ -63,6 +63,7 @@ public class Unit : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         hp = hpMax;
+        nav.speed = movementSpeed;
         healthBar = Instantiate(hpBarPrefab, transform).GetComponent<HealthBar>();
         selectionIndicator = Instantiate(selectionIndicatorPrefab, transform).GetComponent<SelectionIndicator>();
     }

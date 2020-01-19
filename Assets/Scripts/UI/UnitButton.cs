@@ -24,7 +24,6 @@ public class UnitButton : MonoBehaviour
         Buyable buyable;
         if (spawnPrefab && (buyable = spawnPrefab.GetComponent<Buyable>()))
         {
-            Debug.Log(buyable.ToString());
             image.sprite = buyable.icon;
         }
 

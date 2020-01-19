@@ -9,16 +9,9 @@ public class Pikeman : Unit, ISelectable
         healthBar.gameObject.SetActive(selected);
         selectionIndicator.gameObject.SetActive(selected);
     }
-    [Header("Pikeman")]
-    [Range(0, .3f), SerializeField]
-    float shootDuration = 0;
-    const string EFFECTS_TAG = "Effects";
-
     protected override void Awake()
     {
         base.Awake();
-        hpMax = 100;
-
     }
 
     protected override void Start()
@@ -55,11 +48,7 @@ public class Pikeman : Unit, ISelectable
 
     public override void DealDamage()
     {
-        if (Shoot())
-        {
-            base.DealDamage();
-        }
-
+        base.DealDamage();
     }
 
     bool Shoot()
