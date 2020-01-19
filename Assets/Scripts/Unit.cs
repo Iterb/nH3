@@ -26,7 +26,6 @@ public class Unit : MonoBehaviour
     GameObject hpBarPrefab;
     [SerializeField]
     GameObject selectionIndicatorPrefab;
-    [SerializeField]
     float hp;
     [SerializeField]
     protected float attackDistance = 1,
@@ -42,15 +41,22 @@ public class Unit : MonoBehaviour
     float attackTimer;
     protected Animator animator;
     protected Task task = Task.idle;
-
     //UNIT STATISTICS
+    [SerializeField]
     protected float attack;
+    [SerializeField]
     protected float defence;
-    protected float dmgMin;
-    protected float dmgMax;
-    protected float hpMax = 50;
+    [SerializeField]
+    protected int dmgMin;
+    [SerializeField]
+    protected int dmgMax;
+    [SerializeField]
+    protected float hpMax;
+    [SerializeField]
     protected float movementSpeed;
+    [SerializeField]
     protected float cost;
+    [SerializeField]
 
     protected virtual void Awake()
     {
@@ -62,7 +68,7 @@ public class Unit : MonoBehaviour
     }
     protected virtual void Start()
     {
-        
+
         if (this is ISelectable)
         {
             selectableUnits.Add(this as ISelectable);
@@ -190,9 +196,28 @@ public class Unit : MonoBehaviour
             target = null;
         }
 
-        
-    }
 
+    }
+    float DamageCalcuationFormula(Unit target)
+    {
+        
+        int baseDmg;
+        double i1, i2, i3, i4, i5, r1, r2, r3, r4, r5, r6, r7, r8;
+        if ((attack - target.defence) > 0)
+        {
+            i1 = 0.05 * (attack - target.defence);
+            r1 = 0;
+        }
+        else
+        {
+            i1 = 0;
+            r1 = 0.025 * (target.defence - attack);
+        }
+        baseDmg = Random.Range(dmgMin, dmgMax + 1);
+        float dmgDone = Mathf.Round((float)(baseDmg * (1 + i1) * (1 - r1)));
+        //Debug.Log(transform.ToString() + " to: " + target.ToString() + ": " + dmgDone);
+        return dmgDone;
+    }
     public virtual void DealDamage()
     {
         if (target)
@@ -200,14 +225,15 @@ public class Unit : MonoBehaviour
             Unit unit = target.GetComponent<Unit>();
             if (unit)
             {
-                unit.ReciveDamage(attackDamage, transform.position);
+                float dmgDone = DamageCalcuationFormula(unit);
+                unit.ReciveDamage(dmgDone, transform.position);
             }
         }
     }
 
     public virtual void ReciveDamage(float damage, Vector3 damageDealerPosition)
     {
-        if(IsAlive) hp -= damage;
+        if (IsAlive) hp -= damage;
 
         if (!IsAlive)
         {

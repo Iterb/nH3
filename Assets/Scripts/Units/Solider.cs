@@ -25,7 +25,6 @@ public class Solider : Unit, ISelectable
     protected override void Awake()
     {
         base.Awake();
-        hpMax = 100;
         lineEffect = muzzleEffect.GetComponent<LineRenderer>();
         lightEffect = muzzleEffect.GetComponent<Light>();
         impactEffect.transform.SetParent(null); // zeby ruch solidera podczas strzalu nie wplywal na miejsce impactu

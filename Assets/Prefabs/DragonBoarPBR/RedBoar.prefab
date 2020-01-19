@@ -980,15 +980,21 @@ MonoBehaviour:
     type: 3}
   selectionIndicatorPrefab: {fileID: 8518569178464656503, guid: 05eb749302717ae4f8df793b62b81a73,
     type: 3}
-  hp: 0
-  hpMax: 250
   attackDistance: 5
   attackCooldown: 2
   attackDamage: 50
   stoppingDistance: 1
+  attack: 10
+  defence: 12
+  dmgMin: 6
+  dmgMax: 9
+  hpMax: 35
+  movementSpeed: 5
+  cost: 300
   chasingSpeed: 6
   patrolRadius: 10
   idlingCooldown: 2
+  reward: 100
 --- !u!195 &4099086628100138154
 NavMeshAgent:
   m_ObjectHideFlags: 0
