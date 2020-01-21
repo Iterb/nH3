@@ -28,7 +28,11 @@ public class UnitButton : MonoBehaviour
         }
 
     }
-    
+    private void Start()
+    {
+        
+    }
+
     private void Update()
     {
         Buyable buyable;

@@ -70,6 +70,8 @@ public class Unit : MonoBehaviour
         animator = GetComponent<Animator>();
         hp = hpMax;
         nav.speed = movementSpeed;
+        nav.angularSpeed = 450;
+        nav.stoppingDistance = 1;
         healthBar = Instantiate(hpBarPrefab, transform).GetComponent<HealthBar>();
         selectionIndicator = Instantiate(selectionIndicatorPrefab, transform).GetComponent<SelectionIndicator>();
     }
