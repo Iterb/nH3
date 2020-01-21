@@ -34,7 +34,6 @@ public class Tent : Building, ISelectable
         if (!buyable || !Money.TrySpendMoney(buyable.cost)) return;
         var unit = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
         unit.SendMessage("Command", flag.position, SendMessageOptions.DontRequireReceiver);
-        Debug.Log(buyable.creationTime);
         spawnTimer = buyable.creationTime;
         MoneyEarner.ShowMoneyText(unit.transform.position, -(int)buyable.cost);
     }

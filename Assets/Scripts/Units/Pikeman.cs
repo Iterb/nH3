@@ -33,16 +33,16 @@ public class Pikeman : Unit, ISelectable
         nav.SetDestination(destination);
         task = Task.move;
     }
-    void Command(Solider soliderToFollow)
+    void CommandFollow(Unit unitToFollow)
     {
         if (!IsAlive) return;
-        target = soliderToFollow.transform;
+        target = unitToFollow.transform;
         task = Task.follow;
     }
-    void Command(Dragon dragonToKill)
+    void CommandAttack(Unit enemyToAttack)
     {
         if (!IsAlive) return;
-        target = dragonToKill.transform;
+        target = enemyToAttack.transform;
         task = Task.chase;
     }
 

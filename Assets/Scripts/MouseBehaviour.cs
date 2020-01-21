@@ -78,7 +78,7 @@ public class MouseBehaviour : MonoBehaviour
                 GiveCommands();
                 buildingPrefabToSpawn = null;
             }
-        }     
+        }
 
     }
 
@@ -91,7 +91,7 @@ public class MouseBehaviour : MonoBehaviour
             if (!unit || !unit.IsAlive) continue; //to do ||isAlive
             bool isUnit = (selectedUnit == unit);
             bool inRect = IsWithinSelectionBounds(unit);
-            (unit as ISelectable).SetSelected(inRect||isUnit);
+            (unit as ISelectable).SetSelected(inRect || isUnit);
             if (inRect || isUnit)
             {
                 selectedUnits.Add(unit);
@@ -135,7 +135,7 @@ public class MouseBehaviour : MonoBehaviour
     }
 
 
-    
+
 
 
     void UpdatePlacer()
@@ -153,7 +153,7 @@ public class MouseBehaviour : MonoBehaviour
 
     void TryBuild()
     {
-        if (buildingPrefabToSpawn && placer && 
+        if (buildingPrefabToSpawn && placer &&
             placer.isActiveAndEnabled && placer.CanBuildHere())
         {
             var buyable = buildingPrefabToSpawn.GetComponent<Buyable>();
@@ -165,12 +165,14 @@ public class MouseBehaviour : MonoBehaviour
 
     void GiveCommands()
     {
+        string commandName = "Command";
         if (Physics.Raycast(ray, out rayHit, 1000, commandLayerMask))
         {
             object commandData = null;//taki sposb poniewaz zostanie wyslany jako messa
             if (rayHit.collider is TerrainCollider)
             {
                 //Debug.Log("Terrain: " + rayHit.point.ToString());
+                commandName = "Command";
                 commandData = rayHit.point;
             }
 
@@ -178,9 +180,13 @@ public class MouseBehaviour : MonoBehaviour
             {
                 //Debug.Log(rayHit.collider);
                 commandData = rayHit.collider.gameObject.GetComponent<Unit>();
+                Unit unit = rayHit.collider.gameObject.GetComponent<Unit>();
+                //checking rayHitted's unitStatus
+                if (unit.unitStatus == Unit.UnitStatus.enemy || unit.unitStatus == Unit.UnitStatus.neutral)  commandName = "CommandAttack"; 
+                if (unit.unitStatus == Unit.UnitStatus.player) commandName = "CommandFollow";
             }
-            GiveCommands(commandData, "Command");
-            
+            GiveCommands(commandData, commandName);
+
         }
     }
 

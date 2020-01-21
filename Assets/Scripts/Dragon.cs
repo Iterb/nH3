@@ -17,31 +17,32 @@ public class Dragon : Unit
     Vector3 startPoint;
     float idlingTimer;
     //[SerializeField]
-    List<Solider> seenSoliders = new List<Solider>();
-    Solider ClosestSolider
+    List<Unit> seenUnits = new List<Unit>();
+    Unit ClosestUnit
     {
         get
         {
-            if (seenSoliders == null || seenSoliders.Count <= 0) return null;
+            if (seenUnits == null || seenUnits.Count <= 0) return null;
             float minDistance = float.MaxValue;
-            Solider closestSolider = null;
-            foreach (Solider solider in seenSoliders)
+            Unit closestUnit = null;
+            foreach (Unit unit in seenUnits)
             {
-                if (!solider || !solider.IsAlive) continue;
-                float distance = Vector3.Magnitude(solider.transform.position - transform.position);
+                if (!unit || !unit.IsAlive || unit.unitStatus == UnitStatus.neutral) continue;
+                float distance = Vector3.Magnitude(unit.transform.position - transform.position);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
-                    closestSolider = solider;
+                    closestUnit = unit;
                 }
             }
-            return closestSolider;
+            return closestUnit;
         }
     }
 
     protected override void Awake()
     {
         base.Awake();
+        unitStatus = UnitStatus.neutral;
         normalSpeed = movementSpeed;
         startPoint = transform.position;
     }
@@ -62,20 +63,20 @@ public class Dragon : Unit
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-        var solider = other.gameObject.GetComponent<Solider>();
-        if (solider && !seenSoliders.Contains(solider))
+        var unit = other.gameObject.GetComponent<Unit>();
+        if (unit && !seenUnits.Contains(unit) && unit.unitStatus != UnitStatus.neutral)
         {
-            seenSoliders.Add(solider);
+            seenUnits.Add(unit);
         }
     }
 
     protected override void OnTriggerExit(Collider other)
     {
         base.OnTriggerExit(other);
-        var solider = other.gameObject.GetComponent<Solider>();
-        if (solider)
+        var unit = other.gameObject.GetComponent<Unit>();
+        if (unit)
         {
-            seenSoliders.Remove(solider);
+            seenUnits.Remove(unit);
         }
     }
     protected override void Idling()
@@ -105,10 +106,10 @@ public class Dragon : Unit
 
     void UpdateSight()
     {
-        var solider = ClosestSolider;
-        if (solider)
+        var unit = ClosestUnit;
+        if (unit)
         {
-            target = solider.transform;
+            target = unit.transform;
             task = Task.chase;
         }
     }

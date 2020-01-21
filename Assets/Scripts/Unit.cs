@@ -10,6 +10,12 @@ public class Unit : MonoBehaviour
     {
         idle, move, follow, chase, attack
     }
+    public enum UnitStatus
+    {
+        player, neutral, enemy
+    }
+
+    public UnitStatus unitStatus = UnitStatus.player;
     const string ANIMATOR_SPEED = "Speed",
         ANIMATOR_ALIVE = "Alive",
         ANIMATOR_ATTACK = "Attack";
