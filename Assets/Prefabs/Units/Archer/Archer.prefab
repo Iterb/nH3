@@ -259,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1520046975230114608
 Transform:
   m_ObjectHideFlags: 0
@@ -268,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865393967792332432}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0.01, z: -0.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1107886746587518094}
@@ -1084,9 +1084,9 @@ GameObject:
   - component: {fileID: 9168343367913752044}
   - component: {fileID: 1721431204}
   - component: {fileID: 1721431205}
-  - component: {fileID: 1721431201}
   - component: {fileID: 1721431202}
   - component: {fileID: 1721431203}
+  - component: {fileID: 1973228953}
   m_Layer: 12
   m_Name: Archer
   m_TagString: Unit
@@ -1102,7 +1102,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2876997169817885317}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 105.61225, y: 50.022472, z: 166.84535}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1107886746587518094}
@@ -1159,34 +1159,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1721431201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2876997169817885317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a05a05a7c340e264aa9fa15db4bd356f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitStatus: 0
-  hpBarPrefab: {fileID: 2636018087333842385, guid: 8a6d4f35db0e495438077c2443d335f2,
-    type: 3}
-  selectionIndicatorPrefab: {fileID: 8518569178464656503, guid: 05eb749302717ae4f8df793b62b81a73,
-    type: 3}
-  attackDistance: 10
-  attackCooldown: 1
-  attackDamage: 4
-  stoppingDistance: 1
-  attack: 4
-  defence: 4
-  dmgMin: 4
-  dmgMax: 5
-  hpMax: 40
-  movementSpeed: 5
-  cost: 50
 --- !u!114 &1721431202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1215,7 +1187,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 400
+  m_AngularSpeed: 800
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -1224,6 +1196,36 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1973228953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876997169817885317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 666133c0e32ee3d4d819bc13c0258382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStatus: 0
+  hpBarPrefab: {fileID: 2636018087333842385, guid: 8a6d4f35db0e495438077c2443d335f2,
+    type: 3}
+  selectionIndicatorPrefab: {fileID: 8518569178464656503, guid: 05eb749302717ae4f8df793b62b81a73,
+    type: 3}
+  attackDistance: 40
+  attackCooldown: 1
+  attackDamage: 4
+  stoppingDistance: 1
+  attack: 4
+  defence: 4
+  dmgMin: 4
+  dmgMax: 4
+  hpMax: 500
+  movementSpeed: 4
+  cost: 40
+  arrowPrefab: {fileID: 7895712232154673171, guid: cfc241af85a855243845e3cb9aa3bbc7,
+    type: 3}
 --- !u!1 &2896308391786134070
 GameObject:
   m_ObjectHideFlags: 0

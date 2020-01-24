@@ -43,8 +43,8 @@ public class Unit : MonoBehaviour
     protected SelectionIndicator selectionIndicator;
     protected NavMeshAgent nav;
     protected Transform target;
+    protected float attackTimer;
 
-    float attackTimer;
     protected Animator animator;
     protected Task task = Task.idle;
     //UNIT STATISTICS
@@ -72,6 +72,7 @@ public class Unit : MonoBehaviour
         nav.speed = movementSpeed;
         nav.angularSpeed = 450;
         nav.stoppingDistance = 1;
+        nav.acceleration = 50;
         healthBar = Instantiate(hpBarPrefab, transform).GetComponent<HealthBar>();
         selectionIndicator = Instantiate(selectionIndicatorPrefab, transform).GetComponent<SelectionIndicator>();
     }
