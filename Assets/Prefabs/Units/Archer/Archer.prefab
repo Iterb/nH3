@@ -1217,14 +1217,14 @@ MonoBehaviour:
   attackCooldown: 1
   attackDamage: 4
   stoppingDistance: 1
-  attack: 4
-  defence: 4
-  dmgMin: 4
-  dmgMax: 4
+  attack: 6
+  defence: 3
+  dmgMin: 2
+  dmgMax: 3
   hpMax: 500
   movementSpeed: 4
-  cost: 40
-  arrowPrefab: {fileID: 7895712232154673171, guid: cfc241af85a855243845e3cb9aa3bbc7,
+  cost: 100
+  arrowPrefab: {fileID: 903174566960385660, guid: 5cbc5e02347a00d4d9923722a11ac5ef,
     type: 3}
 --- !u!1 &2896308391786134070
 GameObject:

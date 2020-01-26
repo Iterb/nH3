@@ -210,7 +210,9 @@ public class Unit : MonoBehaviour
     }
     float DamageCalcuationFormula(Unit target)
     {
-        
+        Debug.Log(target);
+        Debug.Log(attack);
+        Debug.Log(this);
         int baseDmg;
         double i1, i2, i3, i4, i5, r1, r2, r3, r4, r5, r6, r7, r8;
         if ((attack - target.defence) > 0)
@@ -224,6 +226,7 @@ public class Unit : MonoBehaviour
             r1 = 0.025 * (target.defence - attack);
         }
         baseDmg = Random.Range(dmgMin, dmgMax + 1);
+        Debug.Log(baseDmg);
         float dmgDone = Mathf.Round((float)(baseDmg * (1 + i1) * (1 - r1)));
         //Debug.Log(transform.ToString() + " to: " + target.ToString() + ": " + dmgDone);
         return dmgDone;
@@ -236,6 +239,19 @@ public class Unit : MonoBehaviour
             if (unit)
             {
                 float dmgDone = DamageCalcuationFormula(unit);
+                unit.ReciveDamage(dmgDone, transform.position);
+            }
+        }
+    }
+    public virtual void DealDamage(Unit tar)
+    {
+        if (tar)
+        {
+            Unit unit = tar.GetComponent<Unit>();
+            if (unit)
+            {
+                float dmgDone = DamageCalcuationFormula(unit);
+                Debug.Log(dmgDone);
                 unit.ReciveDamage(dmgDone, transform.position);
             }
         }

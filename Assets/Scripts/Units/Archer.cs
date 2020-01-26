@@ -6,8 +6,10 @@ public class Archer : Unit, ISelectable
 {
     [SerializeField]
     GameObject arrowPrefab;
+    
 
     protected Arrow arrow;
+    protected float flyTime;
     public void SetSelected(bool selected)
     {
         //arrowPrefab = Resources.Load("arrow") as GameObject;
@@ -60,12 +62,7 @@ public class Archer : Unit, ISelectable
     }
     public override void DealDamage()
     {
-        if (Shoot())
-        {
-            base.DealDamage();
-        }
-
-        
+        base.DealDamage();
     }
     protected override void Attacking()
     {
@@ -93,23 +90,24 @@ public class Archer : Unit, ISelectable
     }
     bool Shoot()
     {
-        //Vector3 start = muzzleEffect.transform.position;
         Vector3 direction = transform.forward;
-        arrow = Instantiate(arrowPrefab, transform).GetComponent<Arrow>();
-        arrow.transform.position += new Vector3(0f, 1.37f, 0.6f);
-        arrow.transform.eulerAngles += new Vector3(-10.66f, -90, 0f);
+        float distance = Vector3.Magnitude(target.position - transform.position);
+        float velocity;
+        velocity = Mathf.Sqrt(distance * 9.81f);
+        flyTime = (2 * velocity * 0.707f) / 9.81f;
+        
+
+        arrow = Instantiate(arrowPrefab, transform).GetComponentInChildren<Arrow>();
+        Debug.Log(arrow.ToString());
+        arrow.transform.localPosition += new Vector3(-0.6f, 1.37f, 0f);
+        arrow.transform.eulerAngles += new Vector3(-15.66f, -90f, 0f);
         Rigidbody rb = arrow.GetComponent<Rigidbody>();
-        rb.velocity = -(transform.right * 30);
-
-
-        //RaycastHit hit;
-        //if (Physics.Raycast(start, direction, out hit, attackDistance, shootingLayerMask))
-        //{
-        //    StartShootEffect(start, hit.point, true);
-        //    var unit = hit.collider.gameObject.GetComponent<Unit>();
-        //    return unit; //true jezeli trafiono w gameobject unit
-        //}
-        //StartShootEffect(start, start + direction * attackDistance, false);
+        Animator animator = arrow.GetComponentInParent<Animator>();
+        float force = rb.mass * velocity / Time.fixedDeltaTime;
+        animator.SetFloat("Fly time", (1f / flyTime));
+        Debug.Log("ArcherDebug: " + 1f / flyTime);
+        rb.AddForce(-(transform.right.x * force * 0.707f), force * 0.707f, -(transform.right.z * force * 0.707f));
+        
         return false;
     }
 
