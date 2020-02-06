@@ -34,31 +34,10 @@ public class Archer : Unit, ISelectable
     {
         base.OnDestroy();
     }
-    void Command(Vector3 destination)
-    {
-        if (!IsAlive) return;
-        nav.SetDestination(destination);
-        task = Task.move;
-    }
-    void CommandFollow(Unit unitToFollow)
-    {
-        if (!IsAlive) return;
-        target = unitToFollow.transform;
-        task = Task.follow;
-    }
-    void CommandAttack(Unit enemyToAttack)
-    {
-        if (!IsAlive) return;
-        target = enemyToAttack.transform;
-        task = Task.chase;
-    }
 
     void ReleaseArrow()
     {
-        if (Shoot())
-        {
-
-        }
+        Shoot();
     }
     public override void DealDamage()
     {
@@ -88,27 +67,22 @@ public class Archer : Unit, ISelectable
             task = Task.idle;
         }
     }
-    bool Shoot()
+    void Shoot()
     {
+        float gravity = 30;
+        if (!target) return;
         Vector3 direction = transform.forward;
         float distance = Vector3.Magnitude(target.position - transform.position);
         float velocity;
-        velocity = Mathf.Sqrt(distance * 9.81f);
-        flyTime = (2 * velocity * 0.707f) / 9.81f;
-        
-
+        velocity = Mathf.Sqrt(distance * gravity);
+        flyTime = (2 * velocity * 0.707f) / gravity;
         arrow = Instantiate(arrowPrefab, transform).GetComponentInChildren<Arrow>();
-        Debug.Log(arrow.ToString());
         arrow.transform.localPosition += new Vector3(-0.6f, 1.37f, 0f);
         arrow.transform.eulerAngles += new Vector3(-15.66f, -90f, 0f);
         Rigidbody rb = arrow.GetComponent<Rigidbody>();
-        Animator animator = arrow.GetComponentInParent<Animator>();
         float force = rb.mass * velocity / Time.fixedDeltaTime;
-        animator.SetFloat("Fly time", (1f / flyTime));
-        Debug.Log("ArcherDebug: " + 1f / flyTime);
         rb.AddForce(-(transform.right.x * force * 0.707f), force * 0.707f, -(transform.right.z * force * 0.707f));
         
-        return false;
     }
 
     public override void ReciveDamage(float damage, Vector3 damageDealerPosition)

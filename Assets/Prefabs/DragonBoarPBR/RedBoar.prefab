@@ -976,6 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6433a8431bbc94f9bcc17f734b95f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitStatus: 0
   hpBarPrefab: {fileID: 2636018087333842385, guid: bbae83849e7ae1e40b1056e40c46e36f,
     type: 3}
   selectionIndicatorPrefab: {fileID: 8518569178464656503, guid: 05eb749302717ae4f8df793b62b81a73,

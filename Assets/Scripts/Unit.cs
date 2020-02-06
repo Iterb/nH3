@@ -91,6 +91,24 @@ public class Unit : MonoBehaviour
         if (this is ISelectable) selectableUnits.Remove(this as ISelectable);
     }
 
+    void Command(Vector3 destination)
+    {
+        if (!IsAlive) return;
+        nav.SetDestination(destination);
+        task = Task.move;
+    }
+    void CommandFollow(Unit unitToFollow)
+    {
+        if (!IsAlive) return;
+        target = unitToFollow.transform;
+        task = Task.follow;
+    }
+    void CommandAttack(Unit enemyToAttack)
+    {
+        if (!IsAlive) return;
+        target = enemyToAttack.transform;
+        task = Task.chase;
+    }
     protected virtual void Update()
     {
         Animate();
